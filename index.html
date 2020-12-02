@@ -3,9 +3,32 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tic-tac-toe</title>
+
+    <link rel="stylesheet" href="main.css" />
+
+    <title>Tic-Tac-Toe</title>
   </head>
   <body>
-    Tic-tac-toe
+    <div id="header-container"></div>
+    <div id="main-container">
+      <div id="board-container">
+        <div class="row">
+          <div class="col" data-y="0" data-x="0"></div>
+          <div class="col" data-y="0" data-x="1"></div>
+          <div class="col" data-y="0" data-x="2"></div>
+        </div>
+        <div class="row">
+          <div class="col" data-y="1" data-x="0"></div>
+          <div class="col" data-y="1" data-x="1"></div>
+          <div class="col" data-y="1" data-x="2"></div>
+        </div>
+        <div class="row">
+          <div class="col" data-y="2" data-x="0"></div>
+          <div class="col" data-y="2" data-x="1"></div>
+          <div class="col" data-y="2" data-x="2"></div>
+        </div>
+      </div>
+    </div>
+    <script src="script.js"></script>
   </body>
 </html>

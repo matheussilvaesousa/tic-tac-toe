@@ -9,11 +9,33 @@
     <title>Tic-Tac-Toe</title>
   </head>
   <body>
-    <div id="header-container"></div>
-    <div id="main-container">
-      <div id="restart-container">
-        <div id="restart-button">Restart</div>
+    <div id="header-container">
+      <div id="logo-container">Tic-Tac-Toe</div>
+      <div id="settings-container">
+        <form id="game-mode-container">
+          <div id="vs-player-container" class="mode-option">
+            <input
+              type="radio"
+              id="vs-player"
+              name="game-mode"
+              value="player"
+              checked
+            />
+            <label type="radio" id="player" for="vs-player"
+              >Player (X) vs Player (O)</label
+            >
+          </div>
+          <!-- <div id="vs-ai-container" class="mode-option">
+            <input type="radio" id="vs-ai" name="game-mode" value="ai" />
+            <label type="radio" id="ai" for="vs-ai">Player (X) vs AI (O)</label>
+          </div> -->
+        </form>
+        <div id="restart-container">
+          <div id="restart-button">Restart</div>
+        </div>
       </div>
+    </div>
+    <div id="main-container">
       <div id="board-container">
         <div class="row">
           <div class="col" data-x="0" data-y="0"></div>

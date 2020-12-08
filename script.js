@@ -76,6 +76,29 @@ const Game = (() => {
 
   const show = () => Object.assign({}, _board);
 
+  const _playAI = (board) => {
+    const randomOpenField = (() => {
+      let openFields = [];
+      for (let i = 0; i < board.length; i++) {
+        for (let j = 0; j < board[i].length; j++) {
+          if (board[i][j] === 0) {
+            openFields.push([i, j]);
+          }
+        }
+      }
+      return openFields[Math.floor(Math.random() * openFields.length)];
+    })();
+
+    board[randomOpenField[0]][randomOpenField[1]] = _players.current.number;
+    const targetCol = Display.cols.filter((col) => {
+      return (
+        col.dataset.x === randomOpenField[1] &&
+        col.dataset.y === randomOpenField[0]
+      );
+    });
+    _merge(board, targetCol);
+  };
+
   const update = (event) => {
     const targetDataset = event.target.dataset;
     const board = _board.data;
@@ -89,8 +112,33 @@ const Game = (() => {
       return;
     }
 
-    board[targetDataset.y][targetDataset.x] = _players.current.number;
-    _merge(board, event.target);
+    if (_players.current.isHuman) {
+      board[targetDataset.y][targetDataset.x] = _players.current.number;
+      _merge(board, event.target);
+    } else if (!_players.current.isHuman) {
+      const randomOpenField = (() => {
+        let openFields = [];
+        for (let i = 0; i < board.length; i++) {
+          for (let j = 0; j < board[i].length; j++) {
+            if (board[i][j] === 0) {
+              openFields.push([i, j]);
+            }
+          }
+        }
+        return openFields[Math.floor(Math.random() * openFields.length)];
+      })();
+
+      board[randomOpenField[0]][randomOpenField[1]] = _players.current.number;
+
+      const cols = Array.from(document.querySelectorAll(".col"));
+      const targetCol = cols.filter((col) => {
+        return (
+          col.dataset.x === randomOpenField[1] &&
+          col.dataset.y === randomOpenField[0]
+        );
+      });
+      _merge(board, targetCol);
+    }
 
     const secondWinCheck = _check(board);
 
@@ -107,11 +155,12 @@ const Game = (() => {
       return;
     }
 
-    if (_players.current.number === 1) {
-      _players.current = _players.second;
-    } else {
-      _players.current = _players.first;
-    }
+    if (_players.current)
+      if (_players.current.number === 1) {
+        _players.current = _players.second;
+      } else {
+        _players.current = _players.first;
+      }
   };
 
   const restart = () => {
@@ -127,7 +176,7 @@ const Game = (() => {
   const PlayerFactory = (number, isHuman) => {
     const name = isHuman ? `Player ${number}` : "AI";
     const symbol = number === 1 ? "X" : "O";
-    return { name, number, symbol };
+    return { name, number, symbol, isHuman };
   };
 
   return { setup, show, update, restart };
@@ -135,7 +184,15 @@ const Game = (() => {
 
 const Display = (() => {
   const start = () => {
-    Game.setup(true); // true = human, false = AI
+    const checkedField = Array.from(elements.gameMode).filter((mode) => {
+      return mode.checked;
+    });
+    console.log(checkedField);
+    if (checkedField[0].value === "player") {
+      Game.setup(true);
+    } else if (checkedField[0].value === "ai") {
+      Game.setup(false);
+    }
   };
 
   const restart = () => {
@@ -151,10 +208,12 @@ const Display = (() => {
     const cols = Array.from(document.querySelectorAll(".col"));
     const message = document.getElementById("message-container");
     const restart = document.getElementById("restart-container");
+    const gameMode = document.getElementById("game-mode-container");
     return {
       cols,
       message,
       restart,
+      gameMode,
     };
   })();
 
@@ -163,6 +222,10 @@ const Display = (() => {
   });
 
   elements.restart.addEventListener("click", restart);
+  elements.gameMode.addEventListener("click", start);
+  Array.from(elements.gameMode).forEach((mode) => {
+    mode.addEventListener("click", start);
+  });
 
   return {
     elements,

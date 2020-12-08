@@ -12,8 +12,21 @@ body {
 
 #header-container {
   display: flex;
+  justify-content: center;
   height: 20vh;
   width: 100vw;
+}
+
+#logo-container {
+  font-size: 46px;
+  font-family: "Galindo", cursive;
+  text-align: center;
+  line-height: 20vh;
+  height: 20vh;
+  margin-right: 50px;
+  color: #edf5e1;
+  align-self: flex-start;
+  text-shadow: 2px 2px rgba(0, 0, 0, 0.2);
 }
 
 #main-container {
@@ -25,17 +38,59 @@ body {
   align-items: center;
 }
 
+#settings-container {
+  display: flex;
+  /* justify-content: space-around; */
+  align-items: center;
+}
+
+#game-mode-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 67px;
+  font-family: "Galindo", cursive;
+  color: #edf5e1;
+  padding: 12px 20px;
+  border-radius: 4px;
+}
+
+.mode-option {
+  display: flex;
+  text-shadow: 2px 2px rgba(0, 0, 0, 0.2);
+}
+
+.mode-option:hover {
+  color: #dde2d6;
+}
+
+#vs-player,
+#vs-ai {
+  cursor: pointer;
+}
+
+#ai,
+#player {
+  margin-left: 12px;
+  cursor: pointer;
+}
+
 #restart-container {
-  margin-bottom: 60px;
-  background-color: #05386b;
-  padding: 10px 20px;
+  margin-left: 50px;
+  margin-right: 10px;
+  border-radius: 4px;
   cursor: pointer;
 }
 
 #restart-button {
   font-family: "Galindo", cursive;
-  font-size: 24px;
+  font-size: 28px;
   color: #edf5e1;
+  text-shadow: 2px 2px rgba(0, 0, 0, 0.2);
+}
+
+#restart-button:hover {
+  color: #dde2d6;
 }
 
 #board-container {
@@ -66,9 +121,14 @@ body {
   cursor: pointer;
 }
 
+.col:hover {
+  background-color: #032f5a;
+}
+
 #message-container {
   margin-top: 50px;
   font-family: "Galindo", cursive;
-  font-size: 46px;
+  font-size: 30px;
   color: #edf5e1;
+  text-shadow: 2px 2px rgba(0, 0, 0, 0.2);
 }
